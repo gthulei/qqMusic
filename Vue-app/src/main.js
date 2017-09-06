@@ -6,6 +6,9 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+// 导入css
+import 'public/css/index.scss'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
