@@ -94,6 +94,7 @@
   @import "../../public/css/variable.scss";
 
   .mint-cell {
+    vertical-align: middle;
     display: inline-block;
     background-color: $color-background;
   }
@@ -123,6 +124,7 @@
   .avicon {
     margin-left: 10px;
     border-radius: 50%;
+    vertical-align: middle;
   }
 
   .mint-cell:last-child {
@@ -131,7 +133,7 @@
   }
 
   .mint-cell-wrapper {
-    margin-bottom: 10px;
+
     background-image: -webkit-linear-gradient(top, $color-background, $color-background 50%, transparent 50%);
     background-image: linear-gradient(180deg, $color-background, $color-background 50%, transparent 50%);
   }
