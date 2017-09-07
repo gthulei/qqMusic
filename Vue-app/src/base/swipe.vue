@@ -11,7 +11,7 @@
     >
       <mt-swipe-item v-for="item in swipeList" :key="item.id">
         <a :href="item.linkUrl">
-          <img :src="item.picUrl" width="100%" ref="swipe" @load="loadImage">
+          <img :src="item.picUrl" ref="swipe">
         </a>
       </mt-swipe-item>
     </mt-swipe>
@@ -20,6 +20,11 @@
 
 <script type="text/ecmascript-6">
   export default {
+    data() {
+      return {
+        c:0
+      }
+    },
     props: {
       swipeList: {
         type: Array,
@@ -60,30 +65,18 @@
         type: Boolean,
         default: false
       }
-    },
-    mounted() {
-      window.addEventListener('resize', () => {
-        window.location.reload();
-      })
-    },
-    methods: {
-      _setSwipeHeight() {
-        let h = this.$refs.swipe[0].height;
-        console.log(this.$refs.swipe[0]);
-        this.$refs.swipeGroup.style.height = h + 'px';
-      },
-      // @load图片加载完自动执行
-      loadImage() {
-        if (!this.checkloaded) {
-          this._setSwipeHeight();
-          this.checkloaded = true;
-        }
-      }
     }
   }
 </script>
 
-<style>
+<style lang="scss">
+  .swipe{
+    height: 250px;
+    img{
+      width:100%;
+      height: 250px;
+    }
+  }
   .mint-swipe-indicator{
     opacity: 1 !important;
   }
