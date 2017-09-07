@@ -30,6 +30,7 @@
     },
     watch: {
       selected: function (val, oldVal) {
+        this.selected = val;
         console.log(val)
       }
     }
