@@ -41,6 +41,7 @@
 
   .mint-tabbar {
     background-color: $color-background;
+    background-image:linear-gradient(180deg, $color-background, $color-background 50%, transparent 50%);
     .mint-tab-item {
       color: $color-text-l;
       .mint-tab-item-label {

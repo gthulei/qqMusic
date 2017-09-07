@@ -32,5 +32,6 @@
   .mint-header{
     background-color: $color-background;
     color: $color-text-green;
+    font-size: $font-size-large;
   }
 </style>
