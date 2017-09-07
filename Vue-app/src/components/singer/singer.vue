@@ -93,10 +93,6 @@
 <style lang="scss">
   @import "../../public/css/variable.scss";
 
-  .singer {
-    margin-top: 80px;
-  }
-
   .mint-cell {
     display: inline-block;
     background-color: $color-background;

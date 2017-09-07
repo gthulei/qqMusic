@@ -34,8 +34,7 @@
 
   .tabWarp {
     width: 100%;
-    position: fixed;
-    top: 41px;
+    margin-top: 40px;
     .tabs {
       display: flex;
       li {
