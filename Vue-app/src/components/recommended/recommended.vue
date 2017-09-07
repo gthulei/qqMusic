@@ -1,7 +1,7 @@
 <template>
   <div class="recommended">
     <v-swipe :swipeList="swipeList" v-if="swipeList.length"></v-swipe>
-    <div class="recommend-list">
+    <div class="recommend-list" v-if="discList.length">
       <h1 class="list-title">热门歌单推荐</h1>
       <ul>
         <li v-for="item in discList" class="item">

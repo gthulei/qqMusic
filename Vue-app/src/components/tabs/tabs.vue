@@ -1,64 +1,56 @@
 <template>
-  <mt-tabbar v-model="selected" :fixed="true">
-    <mt-tab-item id="推荐">
-      <router-link tag="div" to="/recommended">
-        推荐
-      </router-link>
-    </mt-tab-item>
-    <mt-tab-item id="歌手">
-      <router-link tag="div" to="/singer">
-        歌手
-      </router-link>
-    </mt-tab-item>
-    <mt-tab-item id="排行">
-      <router-link tag="div" to="/rankings">
-        排行
-      </router-link>
-    </mt-tab-item>
-    <mt-tab-item id="搜索">
-      <router-link tag="div" to="/search">
-        搜索
-      </router-link>
-    </mt-tab-item>
-  </mt-tabbar>
+  <div class="tabWarp">
+    <ul class="tabs">
+      <li>
+        <router-link tag="div" class="tab-item" to="/recommended">
+          <span class="tab-link">推荐</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link tag="div" class="tab-item" to="/singer">
+          <span class="tab-link">歌手</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link tag="div" class="tab-item" to="/rankings">
+          <span class="tab-link">排行</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link tag="div" class="tab-item" to="/search">
+          <span class="tab-link">搜索</span>
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
-  export default {
-    data(){
-      return {selected: '推荐'}
-    },
-    watch: {
-      selected: function (val, oldVal) {
-        this.selected = val;
-        console.log(val)
-      }
-    }
-  }
+  export default {}
 </script>
 
 <style lang="scss">
   @import "../../public/css/variable.scss";
 
-  .mint-tabbar {
-    background-color: $color-background;
-    background-image:linear-gradient(180deg, $color-background, $color-background 50%, transparent 50%);
-    .mint-tab-item {
-      color: $color-text-l;
-      .mint-tab-item-label {
-        font-size: $font-size-medium;
+  .tabWarp {
+    width: 100%;
+    position: fixed;
+    top: 41px;
+    .tabs {
+      display: flex;
+      li {
+        flex: 1;
+        text-align: center;
+        .tab-item{
+          color: $color-text-l;
+          font-size: $font-size-medium-x;
+          padding: 10px 0;
+        }
+        .router-link-active{
+          color: $color-theme;
+          border-bottom: 2px solid $color-theme;
+        }
       }
     }
-  }
-
-  .mint-tabbar.is-fixed {
-    top: 40px;
-    bottom: auto;
-  }
-
-  .mint-tabbar > .mint-tab-item.is-selected {
-    background-color: $color-background;
-    border-bottom: 2px solid $color-theme;
-    color: $color-theme;
   }
 </style>
