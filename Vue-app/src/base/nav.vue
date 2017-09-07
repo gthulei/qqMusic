@@ -28,6 +28,7 @@
 
 <style lang="scss">
   @import "../public/css/variable.scss";
+
   .mint-header{
     background-color: $color-background;
     color: $color-text-green;
