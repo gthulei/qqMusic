@@ -2,7 +2,10 @@
   <div id="app">
     <h-header></h-header>
     <h-tbas></h-tbas>
-    <router-view></router-view>
+    <!--开启缓存-->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
