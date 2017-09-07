@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import HHeader from 'components/h-header/h-header'
+  import HHeader from 'base/nav'
 
   export default {
     components: {
