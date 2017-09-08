@@ -2,7 +2,7 @@
   <div class="singer">
     <mt-index-list>
       <mt-index-section :index="item.title" v-for="(item,i) in dataList" :key="i">
-        <div v-for="list in item.items" :key="list.id" style="margin-bottom: 10px">
+        <div v-for="list in item.items" :key="list.id" style="margin-bottom: 10px" @click="goBack()">
           <img width="60" class="avicon" height="60" v-lazy="list.avicon" alt="">
           <mt-cell :title="list.name"></mt-cell>
         </div>
@@ -25,6 +25,9 @@
       this._getSingerList();
     },
     methods: {
+      goBack() {
+        this.$router.push('/singer/100')
+      },
       _getSingerList() {
         getSingerList().then(res => {
           if (res.code === ERR_OK) {
