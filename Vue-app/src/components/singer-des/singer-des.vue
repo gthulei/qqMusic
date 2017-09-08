@@ -7,6 +7,10 @@
 <script type="text/ecmascript-6">
   import HMusic from 'components/music-list/music-list'
   export default {
+    data() {
+      return {
+      }
+    },
     components: {
       HMusic
     }
