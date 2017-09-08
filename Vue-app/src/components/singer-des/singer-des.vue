@@ -1,27 +1,19 @@
 <template>
   <transition name="slide">
-    <div class="singer-des">
-      详情
-    </div>
+   <h-music></h-music>
   </transition>
 </template>
 
 <script type="text/ecmascript-6">
-  export default {}
+  import HMusic from 'components/music-list/music-list'
+  export default {
+    components: {
+      HMusic
+    }
+  }
 </script>
 
 <style lang="scss">
-  @import "../../public/css/variable.scss";
-
-  .singer-des {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: $color-background
-  }
   .slide-enter-active, .slide-leave-active {
     transition: all 0.3s
   }
