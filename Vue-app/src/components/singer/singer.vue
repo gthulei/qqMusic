@@ -13,7 +13,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getSingerList} from 'api/api.singerLis'
+  import {getSingerList} from 'api/api.singerList'
   import {ERR_OK} from 'api/api.config'
   export default {
     data() {
