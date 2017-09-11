@@ -1,0 +1,5 @@
+/**
+ * Created by hulei on 2017/9/11.
+ * 唯一key值
+ */
+export const SET_SINGER = 'SET_SINGER'
