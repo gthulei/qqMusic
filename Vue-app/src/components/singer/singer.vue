@@ -15,6 +15,8 @@
 <script type="text/ecmascript-6">
   import {getSingerList} from 'api/api.singerList'
   import {ERR_OK} from 'api/api.config'
+  import {mapMutations} from 'vuex'
+
   export default {
     data() {
       return {
@@ -27,6 +29,7 @@
     methods: {
       goBack(singer) {
         this.$router.push(`/singer/${singer.id}`);
+        this.setSinger(singer);
       },
       _getSingerList() {
         getSingerList().then(res => {
@@ -88,7 +91,10 @@
           return a.title.charCodeAt(0) - b.title.charCodeAt(0);
         })
         return hot.concat(list);
-      }
+      },
+      ...mapMutations({
+        setSinger: 'SET_SINGER'
+      })
     }
   }
 </script>
