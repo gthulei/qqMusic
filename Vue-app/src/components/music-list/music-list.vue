@@ -50,7 +50,7 @@
       _getHeight() {
         let musicList = this.$refs.musicList.clientHeight;
         let bgImag = this.$refs.bgImag.clientHeight;
-        this.$refs.songsWarp.style.height = (musicList-bgImag) +'px';
+        this.$refs.songsWarp.style.height = (musicList-bgImag-20) +'px';
       }
     },
     components: {
