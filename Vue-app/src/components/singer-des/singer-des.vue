@@ -1,12 +1,25 @@
 <template>
   <transition name="slide">
-   <h-music></h-music>
+   <h-music :title="title" :bgImage="bgImage"></h-music>
   </transition>
 </template>
 
 <script type="text/ecmascript-6">
   import HMusic from 'components/music-list/music-list'
+  import {mapGetters} from 'vuex'
+
   export default {
+    computed: {
+      title() {
+        return this.singer.name
+      },
+      bgImage() {
+        return this.singer.avicon
+      },
+      ...mapGetters([
+        'singer'
+      ])
+    },
     data() {
       return {
       }

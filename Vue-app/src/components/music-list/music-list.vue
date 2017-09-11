@@ -1,7 +1,7 @@
 <template>
   <div class="music-list">
-    <h-header :isBack="true" :title="'详情'"></h-header>
-    <div class="bg-image" ref="bgImage">
+    <h-header :isBack="true" :title="title"></h-header>
+    <div class="bg-image" :style="bgStyle">
       <div class="play-wrapper">
         <div ref="playBtn" class="play">
           <i class="icon-play"></i>
@@ -18,6 +18,19 @@
   import HHeader from 'base/nav';
 
   export default {
+    props: {
+      title: {
+        type: String,
+      },
+      bgImage:{
+        type: String,
+      }
+    },
+    computed: {
+      bgStyle() {
+        return `background-image:url(${this.bgImage})`
+      }
+    },
     components: {
       HHeader
     }
