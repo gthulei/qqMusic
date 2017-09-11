@@ -1,21 +1,27 @@
 <template>
-  <div class="music-list">
+  <div class="music-list" ref="musicList">
     <h-header :isBack="true" :title="title"></h-header>
-    <div class="bg-image" :style="bgStyle">
+    <div class="bg-image" :style="bgStyle" ref="bgImag">
       <div class="play-wrapper">
         <div ref="playBtn" class="play">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
       </div>
-      <div class="filter"></div>
     </div>
-    <div class="bg-layer"></div>
+    <ul class="songsWarp" ref="songsWarp">
+      <li v-for="item in songs">
+        <h2>{{item.musicData.songname}}</h2>
+        <p>{{title}}·{{item.musicData.albumname}}</p>
+      </li>
+    </ul>
+    <v-loading v-if="songs.length==0"></v-loading>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import HHeader from 'base/nav';
+  import VLoading from 'base/loading';
 
   export default {
     props: {
@@ -24,6 +30,10 @@
       },
       bgImage:{
         type: String,
+      },
+      songs:{
+        typa:Array,
+        default:[]
       }
     },
     computed: {
@@ -31,8 +41,21 @@
         return `background-image:url(${this.bgImage})`
       }
     },
+    mounted() {
+      setTimeout(() => {
+        this._getHeight();
+      },20)
+    },
+    methods: {
+      _getHeight() {
+        let musicList = this.$refs.musicList.clientHeight;
+        let bgImag = this.$refs.bgImag.clientHeight;
+        this.$refs.songsWarp.style.height = (musicList-bgImag) +'px';
+      }
+    },
     components: {
-      HHeader
+      HHeader,
+      VLoading
     }
   }
 </script>
@@ -49,6 +72,23 @@
     bottom: 0;
     right: 0;
     background: $color-background;
+    .songsWarp{
+      overflow: auto;
+      padding: 20px 30px;
+      li{
+        line-height: 20px;
+        margin-bottom: 10px;
+        h2{
+          @extend no-wrap
+        }
+        p{
+          margin-top: 5px;
+          color: $color-text-d;
+          @extend no-wrap
+
+        }
+      }
+    }
     .back {
       position: absolute;
       top: 0;
@@ -96,19 +136,6 @@
           font-size: $font-size-small;
         }
       }
-    }
-    .filter {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(7, 17, 27, 0.4);
-    }
-    .bg-layer {
-      position: relative;
-      height: 100%;
-      background: $color-background;
     }
   }
 </style>
