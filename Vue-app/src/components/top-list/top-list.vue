@@ -1,52 +1,55 @@
 <template>
   <transition name="slide">
-   <h-music :title="title" :bgImage="bgImage" :songs="songs"></h-music>
+    <h-music :title="title" :bgImage="bgImage" :songs="list"></h-music>
   </transition>
 </template>
 
 <script type="text/ecmascript-6">
   import HMusic from 'components/music-list/music-list'
   import {mapGetters} from 'vuex'
-  import {getSingerDetail} from 'api/api.singerList'
+  import {getMusicList} from 'api/api.rankings'
   import {ERR_OK} from 'api/api.config'
   import {createSong} from 'public/js/songs'
 
   export default {
-    computed: {
-      title() {
-        return this.singer.name
-      },
-      bgImage() {
-        return this.singer.avicon
-      },
-      ...mapGetters([
-        'singer'
-      ])
-    },
     data() {
       return {
-        songs:[]
+        list:[]
       }
     },
+    computed: {
+      title() {
+        return this.topList.topTitle
+      },
+      bgImage() {
+        if (this.list.length) {
+          return this.list[0].image
+        }
+        return ''
+      },
+      ...mapGetters([
+        'topList'
+      ])
+    },
     created() {
-      this._getDetail();
+      this._getMusicList();
     },
     methods: {
-      _getDetail() {
-        if(!this.singer.id){
-          this.$router.push('/singer');
+      _getMusicList() {
+        if(!this.topList.id){
+          this.$router.push('/rankings');
           return;
         }
-        getSingerDetail(this.singer.id).then((res) => {
+        getMusicList(this.topList.id).then((res) => {
           if (res.code === ERR_OK) {
-            this.songs = this._normalizeSongs(res.data.list);
+            this.list = this._normalizeSongs(res.songlist);
           }
         })
       },
       _normalizeSongs(list) {
         let ret = []
         list.forEach((item) => {
-          let {musicData} = item
+          let musicData = item.data
           if (musicData.songid && musicData.albummid) {
             ret.push(createSong(musicData))
           }

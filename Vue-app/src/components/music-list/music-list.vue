@@ -11,8 +11,8 @@
     </div>
     <ul class="songsWarp" ref="songsWarp">
       <li v-for="item in songs">
-        <h2>{{item.musicData.songname}}</h2>
-        <p>{{title}}·{{item.musicData.albumname}}</p>
+        <h2>{{item.name}}</h2>
+        <p>{{getDesc(item)}}</p>
       </li>
     </ul>
     <v-loading v-if="songs.length==0"></v-loading>
@@ -47,6 +47,9 @@
       },20)
     },
     methods: {
+      getDesc(song) {
+        return `${song.singer}·${song.album}`
+      },
       _getHeight() {
         let musicList = this.$refs.musicList.clientHeight;
         let bgImag = this.$refs.bgImag.clientHeight;

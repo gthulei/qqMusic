@@ -3,7 +3,8 @@
  * 状态树
  */
 const state = {
-  singer: {}
+  singer: {},
+  topList:{}
 }
 
 export default state
