@@ -1,15 +1,76 @@
 <template>
   <div class="rankings">
-    排行
+    <ul>
+      <li v-for="item in topList" :key="item.id" class="item">
+        <div>
+          <img alt=""  width="100" height="100" v-lazy="item.picUrl">
+        </div>
+        <ul class="songlist">
+          <li class="song" v-for="(song,index) in item.songList">
+            <span>{{index + 1}}</span>
+            <span>{{song.songname}}-{{song.singername}}</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  export default {}
+  import VLoading from 'base/loading';
+  import {getTopList} from 'api/api.rankings'
+  import {ERR_OK} from 'api/api.config'
+
+  export default {
+    data() {
+      return {
+        topList: []
+      }
+    },
+    created() {
+      this._getTopList();
+    },
+    methods: {
+      _getTopList() {
+        getTopList().then( res => {
+          if (res.code === ERR_OK) {
+            this.topList = res.data.topList;
+          }
+        })
+      }
+    },
+    components: {
+      VLoading
+    }
+  }
 </script>
 
 <style lang="scss">
+  @import "../../public/css/variable.scss";
+  @import "../../public/css/mixin.scss";
+
   .rankings{
     margin-top: 78px;
+    .item{
+      display: flex;
+      margin: 0 20px;
+      padding-top: 20px;
+      height: 100px;
+      .songlist{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 20px;
+        background: $color-highlight-background;
+        color: $color-text-d;
+        font-size: $font-size-small;
+        overflow: hidden;
+        .song{
+          line-height: 26px;
+          @extend no-wrap;
+        }
+      }
+    }
   }
 </style>

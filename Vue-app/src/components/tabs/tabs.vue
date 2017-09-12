@@ -37,6 +37,7 @@
     top: 40px;
     z-index: 10;
     width: 100%;
+    background: $color-background;
     .tabs {
       display: flex;
       li {
