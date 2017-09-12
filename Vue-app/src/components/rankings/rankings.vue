@@ -9,5 +9,7 @@
 </script>
 
 <style lang="scss">
-
+  .rankings{
+    margin-top: 78px;
+  }
 </style>

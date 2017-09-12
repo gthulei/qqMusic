@@ -63,6 +63,7 @@
   @import "../../public/css/variable.scss";
 
   .recommended {
+    margin-top: 78px;
     .recommend-list {
       .list-title {
         height: 65px;

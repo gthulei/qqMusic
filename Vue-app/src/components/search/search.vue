@@ -9,5 +9,7 @@
 </script>
 
 <style lang="scss">
-
+  .search{
+      margin-top: 78px;
+  }
 </style>

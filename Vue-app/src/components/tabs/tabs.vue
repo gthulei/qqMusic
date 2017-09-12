@@ -1,5 +1,5 @@
 <template>
-  <div class="tabWarp">
+  <div class="tab-wrap">
     <ul class="tabs">
       <li>
         <router-link tag="div" class="tab-item" to="/recommended">
@@ -32,9 +32,11 @@
 <style lang="scss">
   @import "../../public/css/variable.scss";
 
-  .tabWarp {
+  .tab-wrap {
+    position: fixed;
+    top: 40px;
+    z-index: 10;
     width: 100%;
-    margin-top: 40px;
     .tabs {
       display: flex;
       li {

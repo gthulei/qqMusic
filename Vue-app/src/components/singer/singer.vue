@@ -101,7 +101,9 @@
 
 <style lang="scss">
   @import "../../public/css/variable.scss";
-
+  .singer{
+    margin-top: 78px;
+  }
   .mint-cell {
     vertical-align: middle;
     display: inline-block;
