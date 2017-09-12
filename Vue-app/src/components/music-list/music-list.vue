@@ -9,10 +9,13 @@
         </div>
       </div>
     </div>
-    <ul class="songsWarp" ref="songsWarp">
-      <li v-for="item in songs">
-        <h2>{{item.name}}</h2>
-        <p>{{getDesc(item)}}</p>
+    <ul class="songsWrap" ref="songsWrap">
+      <li v-for="(item,i) in songs">
+        <span>{{i+1}}</span>
+        <div>
+          <h2>{{item.name}}</h2>
+          <p>{{getDesc(item)}}</p>
+        </div>
       </li>
     </ul>
     <v-loading v-if="songs.length==0"></v-loading>
@@ -53,7 +56,7 @@
       _getHeight() {
         let musicList = this.$refs.musicList.clientHeight;
         let bgImag = this.$refs.bgImag.clientHeight;
-        this.$refs.songsWarp.style.height = (musicList-bgImag-20) +'px';
+        this.$refs.songsWrap.style.height = (musicList-bgImag-20) +'px';
       }
     },
     components: {
@@ -77,12 +80,19 @@
     overflow-scrolling: touch;
     -webkit-overflow-scrolling: touch;
     background: $color-background;
-    .songsWarp{
+    .songsWrap{
       overflow: auto;
       padding: 20px 30px;
       li{
+        display: flex;
         line-height: 20px;
         margin-bottom: 10px;
+        span{
+          align-self:center;
+          margin-right: 10px;
+          color: red;
+          font-size: 28px;
+        }
         h2{
           @extend no-wrap
         }
