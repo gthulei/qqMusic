@@ -8,6 +8,7 @@
         </div>
       </mt-index-section>
     </mt-index-list>
+    <v-loading v-if="dataList.length==0"></v-loading>
     <router-view></router-view>
   </div>
 </template>
@@ -16,6 +17,7 @@
   import {getSingerList} from 'api/api.singerList'
   import {ERR_OK} from 'api/api.config'
   import {mapMutations} from 'vuex'
+  import VLoading from 'base/loading'
 
   export default {
     data() {
@@ -25,6 +27,9 @@
     },
     created() {
       this._getSingerList();
+    },
+    components: {
+      VLoading
     },
     methods: {
       goBack(singer) {

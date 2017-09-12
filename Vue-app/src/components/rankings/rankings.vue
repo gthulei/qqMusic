@@ -1,7 +1,7 @@
 <template>
   <div class="rankings">
     <ul>
-      <li v-for="item in topList" :key="item.id" class="item">
+      <li v-for="item in topList" :key="item.id" class="item" @click="goBack(item)">
         <div>
           <img alt=""  width="100" height="100" v-lazy="item.picUrl">
         </div>
@@ -13,6 +13,8 @@
         </ul>
       </li>
     </ul>
+    <v-loading v-if="topList.length==0"></v-loading>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -20,6 +22,7 @@
   import VLoading from 'base/loading';
   import {getTopList} from 'api/api.rankings'
   import {ERR_OK} from 'api/api.config'
+  import {mapMutations} from 'vuex'
 
   export default {
     data() {
@@ -37,7 +40,14 @@
             this.topList = res.data.topList;
           }
         })
-      }
+      },
+      goBack(rankings) {
+        this.$router.push(`/rankings/${rankings.id}`);
+        this.setTopList(rankings);
+      },
+      ...mapMutations({
+        setTopList: 'SET_TOPLIST'
+      })
     },
     components: {
       VLoading
