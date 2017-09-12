@@ -74,6 +74,8 @@
     left: 0;
     bottom: 0;
     right: 0;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
     background: $color-background;
     .songsWarp{
       overflow: auto;
