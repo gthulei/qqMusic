@@ -1,7 +1,7 @@
 <template>
   <div class="search">
-    <search-box ref="searchBox"></search-box>
-    <div class="hot">
+    <search-box ref="searchBox" @query="changeQuery"></search-box>
+    <div class="hot" v-if="!query">
       <h2>热门搜索</h2>
       <ul>
         <li class="hot-item" v-for="item in hot" @click="setQueryKey(item.k)">
@@ -9,6 +9,7 @@
         </li>
       </ul>
     </div>
+    <v-loading v-if="hot.length==0"></v-loading>
   </div>
 </template>
 
@@ -16,22 +17,26 @@
   import searchBox from 'base/search-box'
   import {getHotKey} from 'api/api.search'
   import {ERR_OK} from 'api/api.config'
+  import VLoading from 'base/loading'
 
   export default {
     data() {
       return {
-        hot:[]
+        hot:[],
+        query:''
       }
     },
     created() {
       this._getHotKey();
     },
     methods: {
+      changeQuery(v) {
+        this.query = v;
+      },
       _getHotKey() {
         getHotKey().then(res => {
           if (res.code === ERR_OK) {
             this.hot = res.data.hotkey.slice(0, 10);
-            console.log(this.hot)
           }
         })
       },
@@ -41,7 +46,8 @@
       }
     },
     components: {
-      searchBox
+      searchBox,
+      VLoading
     }
   }
 </script>

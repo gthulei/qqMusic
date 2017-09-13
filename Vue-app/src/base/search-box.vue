@@ -19,6 +19,12 @@
       setQuery(v) {
         this.query = v;
       }
+    },
+    created() {
+     this.$watch('query',(newQuery) => {
+       // 事件派发
+       this.$emit('query', newQuery)
+     })
     }
   }
 </script>
