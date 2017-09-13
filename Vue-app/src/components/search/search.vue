@@ -1,15 +1,72 @@
 <template>
   <div class="search">
-    搜索
+    <search-box ref="searchBox"></search-box>
+    <div class="hot">
+      <h2>热门搜索</h2>
+      <ul>
+        <li class="hot-item" v-for="item in hot" @click="setQueryKey(item.k)">
+          {{item.k}}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  export default {}
+  import searchBox from 'base/search-box'
+  import {getHotKey} from 'api/api.search'
+  import {ERR_OK} from 'api/api.config'
+
+  export default {
+    data() {
+      return {
+        hot:[]
+      }
+    },
+    created() {
+      this._getHotKey();
+    },
+    methods: {
+      _getHotKey() {
+        getHotKey().then(res => {
+          if (res.code === ERR_OK) {
+            this.hot = res.data.hotkey.slice(0, 10);
+            console.log(this.hot)
+          }
+        })
+      },
+      setQueryKey(v) {
+        // 引用子组件方法
+        this.$refs.searchBox.setQuery(v);
+      }
+    },
+    components: {
+      searchBox
+    }
+  }
 </script>
 
 <style lang="scss">
+  @import "../../public/css/variable.scss";
+
   .search{
       margin-top: 78px;
+    .hot {
+      margin-left: 20px;
+      h2{
+        margin: 10px 0;
+        font-size: $font-size-medium;
+        color: $color-sub-theme;
+      }
+      li{
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 20px 10px 0;
+        border-radius: 6px;
+        background: $color-highlight-background;
+        font-size: $font-size-medium;
+        color: $color-text-d;
+      }
+    }
   }
 </style>
