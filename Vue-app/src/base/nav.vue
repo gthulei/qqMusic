@@ -34,4 +34,12 @@
     color: $color-text-green;
     font-size: $font-size-large;
   }
+  .mint-header.is-fixed{
+    z-index: 100;
+  }
+  .mint-searchbar{
+    width: 100%;
+    position: fixed;
+    top: 78px;
+  }
 </style>
