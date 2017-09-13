@@ -5,7 +5,7 @@
         <div>
           <img alt=""  width="100" height="100" v-lazy="item.picUrl">
         </div>
-        <ul class="songlist">
+        <ul class="song-list">
           <li class="song" v-for="(song,index) in item.songList">
             <span>{{index + 1}}</span>
             <span>{{song.songname}}-{{song.singername}}</span>
@@ -66,7 +66,7 @@
       margin: 0 20px;
       padding-top: 20px;
       height: 100px;
-      .songlist{
+      .song-list{
         flex: 1;
         display: flex;
         flex-direction: column;

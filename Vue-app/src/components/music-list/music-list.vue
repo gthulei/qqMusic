@@ -9,7 +9,7 @@
         </div>
       </div>
     </div>
-    <ul class="songsWrap" ref="songsWrap">
+    <ul class="songs-wrap" ref="songsWrap">
       <li v-for="(item,i) in songs">
         <span>{{i+1}}</span>
         <div style="overflow: hidden;">
@@ -80,7 +80,7 @@
     overflow-scrolling: touch;
     -webkit-overflow-scrolling: touch;
     background: $color-background;
-    .songsWrap{
+    .songs-wrap{
       overflow: auto;
       padding: 20px 30px;
       li{
