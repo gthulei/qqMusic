@@ -9,9 +9,7 @@
         </li>
       </ul>
     </div>
-    <div v-if="query">
-      <search-list :result="result" ></search-list>
-    </div>
+    <search-list :result="result" v-if="query"></search-list>
     <v-loading v-if="hot.length==0"></v-loading>
   </div>
 </template>
@@ -79,7 +77,7 @@
       },
       setQueryKey(v) {
         // 引用子组件方法
-        this.$refs.searchBox.setQuery(v);
+        this.$refs.searchBox.setQuery(v.replace(/^\s+|\s+$/g,""));
       }
     },
     components: {
@@ -106,7 +104,9 @@
   .search{
       margin-top: 78px;
     .hot {
-      margin: 60px 0 0 20px;
+      position: fixed;
+      top: 120px;
+      margin-left: 20px;
       h2{
         margin: 10px 0;
         font-size: $font-size-medium;
