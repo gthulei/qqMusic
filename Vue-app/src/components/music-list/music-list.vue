@@ -12,7 +12,7 @@
     <ul class="songsWrap" ref="songsWrap">
       <li v-for="(item,i) in songs">
         <span>{{i+1}}</span>
-        <div>
+        <div style="overflow: hidden;">
           <h2>{{item.name}}</h2>
           <p>{{getDesc(item)}}</p>
         </div>
