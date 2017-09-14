@@ -13,6 +13,7 @@
           <p class="text" v-html="getDisplayName(item)" :class="{'icon-mine':item.type === 'singer','icon-music':!item.type}"></p>
         </li>
       </ul>
+      <p class="toast" v-if="allLoaded">~~到底了~~</p>
     </mt-loadmore>
   </div>
 </template>
@@ -94,14 +95,15 @@
       topMethod(){
         // 下拉刷新执行的方法
         this.page = 1;
-        console.log('下拉刷新执行的方法');
+        this.allLoaded = false;
         this._search(true);
+
       },
       bottomMethod() {
         //上拉刷新执行的方法
         this.page++;
-        console.log('上拉刷新执行的方法');
         this._search();
+
       }
     }
   }
@@ -116,6 +118,12 @@
     overflow: scroll;
     overflow-scrolling: touch;
     -webkit-overflow-scrolling: touch;
+    .toast{
+      text-align: center;
+      font-size: $font-size-medium;
+      color: $color-text-d;
+      padding: 10px 0;
+    }
     ul {
       padding: 0 30px;
       font-size: $font-size-medium;
