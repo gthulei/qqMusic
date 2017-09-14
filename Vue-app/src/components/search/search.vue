@@ -9,6 +9,7 @@
         </li>
       </ul>
     </div>
+    <search-history v-if="!query"></search-history>
     <search-list :query="query" v-if="query" ref="searchList"></search-list>
     <v-loading v-if="hot.length==0"></v-loading>
   </div>
@@ -21,6 +22,7 @@
   import VLoading from 'base/loading'
   import searchList from 'base/search-list'
   import {createSong} from 'public/js/songs'
+  import searchHistory from 'components/search-history/search-history'
 
   export default {
     data() {
@@ -51,7 +53,8 @@
     components: {
       searchBox,
       VLoading,
-      searchList
+      searchList,
+      searchHistory
     },
     watch: {
       query(newQuery) {
