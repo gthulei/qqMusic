@@ -9,30 +9,24 @@
         </li>
       </ul>
     </div>
-    <search-list :result="result" v-if="query"></search-list>
+    <search-list :query="query" v-if="query" ref="searchList"></search-list>
     <v-loading v-if="hot.length==0"></v-loading>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import searchBox from 'base/search-box'
-  import {getHotKey,search} from 'api/api.search'
+  import {getHotKey} from 'api/api.search'
   import {ERR_OK} from 'api/api.config'
   import VLoading from 'base/loading'
   import searchList from 'base/search-list'
   import {createSong} from 'public/js/songs'
 
-  const perpage = 20;
-
   export default {
     data() {
       return {
         hot:[],
-        query:'',
-        page: 1,
-        showSinger:true,
-        result:[],
-        clear:''
+        query:''
       }
     },
     created() {
@@ -49,32 +43,6 @@
           }
         })
       },
-      _search() {
-        search(this.query, this.page, this.showSinger, perpage).then((res) => {
-          if (res.code === ERR_OK) {
-            this.result = this._genResult(res.data);
-          }
-        })
-      },
-      _genResult(data) {
-        let ret = []
-        if (data.zhida && data.zhida.singerid) {
-          ret.push({...data.zhida,type:'singer'})
-        }
-        if (data.song) {
-          ret = ret.concat(this._normalizeSongs(data.song.list))
-        }
-        return ret
-      },
-      _normalizeSongs(list) {
-        let ret = []
-        list.forEach((musicData) => {
-          if (musicData.songid && musicData.albummid) {
-            ret.push(createSong(musicData))
-          }
-        })
-        return ret
-      },
       setQueryKey(v) {
         // 引用子组件方法
         this.$refs.searchBox.setQuery(v.replace(/^\s+|\s+$/g,""));
@@ -90,7 +58,7 @@
         if(!newQuery)return;
         clearInterval(this.clear);
         this.clear=setTimeout(()=>{
-          this._search();
+          this.$refs.searchList._search();
         },500)
 
       }

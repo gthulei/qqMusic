@@ -1,9 +1,12 @@
 <template>
-  <div class="search-list">
+  <div class="search-list" ref="searchList">
     <mt-loadmore
       :top-method="topMethod"
+      topPullText="↓下拉刷新"
       :bottom-method="bottomMethod"
+      bottomPullText="↑加载更多"
       :bottom-all-loaded="allLoaded"
+      :auto-fill="false"
       ref="loadmore">
       <ul>
         <li v-for="item in result">
@@ -11,26 +14,76 @@
         </li>
       </ul>
     </mt-loadmore>
-    <v-loading v-if="result.length == 0"></v-loading>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import VLoading from 'base/loading'
+  import {search} from 'api/api.search'
+  import {ERR_OK} from 'api/api.config'
+  import {createSong} from 'public/js/songs'
+
+  const perpage = 20;
 
   export default {
     data() {
       return {
-        allLoaded:false
+        allLoaded: false,
+        page: 1,
+        showSinger: true,
+        result: [],
+        clear: ''
       }
     },
     props: {
-      result: {
-        type: Array,
-        default: []
+      query: {
+        type: String,
+        default: ''
       }
     },
+    mounted() {
+      // 外层必须定义高度，且是屏幕的高
+      this.getBodyHeight();
+    },
     methods: {
+      getBodyHeight() {
+        let h = document.documentElement.clientHeight-130;
+        this.$refs.searchList.style.height = h + 'px'
+      },
+      _search(flag) {
+        search(this.query, this.page, this.showSinger, perpage).then((res) => {
+          if (res.code === ERR_OK) {
+            if (flag) {
+              this.result = [];
+            }
+            let ret = this._genResult(res.data);
+            ret && ret.forEach(item => {
+              this.result.push(item);
+            });
+            this.allLoaded = ret.length != perpage;
+            this.$refs.loadmore.onTopLoaded();
+            this.$refs.loadmore.onBottomLoaded();
+          }
+        })
+      },
+      _genResult(data) {
+        let ret = []
+        if (data.zhida && data.zhida.singerid) {
+          ret.push({...data.zhida, type: 'singer'})
+        }
+        if (data.song) {
+          ret = ret.concat(this._normalizeSongs(data.song.list))
+        }
+        return ret
+      },
+      _normalizeSongs(list) {
+        let ret = []
+        list.forEach((musicData) => {
+          if (musicData.songid && musicData.albummid) {
+            ret.push(createSong(musicData))
+          }
+        })
+        return ret
+      },
       getDisplayName(item) {
         if (item.type === 'singer') {
           return item.singername
@@ -40,22 +93,17 @@
       },
       topMethod(){
         // 下拉刷新执行的方法
-        setTimeout(() => {
-          console.log('下拉刷新执行的方法');
-          this.$refs.loadmore.onTopLoaded();
-        },1000)
+        this.page = 1;
+        console.log('下拉刷新执行的方法');
+        this._search(true);
       },
       bottomMethod() {
         //上拉刷新执行的方法
-        setTimeout(()=>{
-          console.log('上拉刷新执行的方法')
-          this.$refs.loadmore.onBottomLoaded();
-        },2000)
+        this.page++;
+        console.log('上拉刷新执行的方法');
+        this._search();
       }
-    },
-    components: {
-      VLoading
-    },
+    }
   }
 </script>
 
@@ -64,14 +112,17 @@
   @import "../public/css/mixin.scss";
 
   .search-list {
-    padding-top: 60px;
+    padding-top: 50px;
+    overflow: scroll;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
     ul {
       padding: 0 30px;
       font-size: $font-size-medium;
       color: $color-text-d;
       li {
-        margin-bottom: 10px;
         p {
+          line-height: 25px;
           @extend no-wrap;
           &:before {
             margin-right: 5px;
