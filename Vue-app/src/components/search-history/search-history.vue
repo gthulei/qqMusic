@@ -1,5 +1,5 @@
 <template>
-  <div class="search-history">
+  <div class="search-history" v-if="list.length">
     <div class="title">
       <span>搜索记录</span>
       <span class="icon" @click="clear">
@@ -7,8 +7,8 @@
       </span>
     </div>
     <ul class="item">
-      <li>
-        <span>刘德华</span>
+      <li v-for="items in list" :key="items.id">
+        <span>{{filtration(items)}}</span>
         <span @click="itemDelete" class="icon">
             <i class="icon-delete"></i>
           </span>
@@ -18,17 +18,40 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapGetters,mapActions} from 'vuex'
+
+  const SINGER = 'singer';
 
   export default {
+    computed: {
+      list() {
+        return this.history
+      },
+      ...mapGetters([
+        'history',
+      ])
+    },
     methods: {
+      ...mapActions([
+        'clearSearch',
+        'delSearch'
+      ]),
+      filtration(item) {
+        return item.type == SINGER ? item.singername : `${item.name} - ${item.singer}`
+      },
       clear() {
         this.$messagebox({
           title: '温馨提示',
           message: '是否清空所有搜索历史?',
           showCancelButton: true
+        }).then(action => {
+          if(action == 'confirm'){
+            this.clearSearch();
+          }
         });
       },
-      itemDelete() {
+      itemDelete(index) {
+        this.delSearch(index-1);
         this.$toast({
           message: '删除成功',
           duration: 500

@@ -4,16 +4,16 @@
       :top-method="topMethod"
       topPullText="↓下拉刷新"
       :bottom-method="bottomMethod"
-      bottomPullText="↑加载更多"
+       bottomPullText="↑加载更多"
       :bottom-all-loaded="allLoaded"
       :auto-fill="false"
       ref="loadmore">
       <ul>
         <li v-for="item in result">
-          <p class="text" v-html="getDisplayName(item)" :class="{'icon-mine':item.type === 'singer','icon-music':!item.type}"></p>
+          <p @click="addHistory(item)" class="text" v-html="getDisplayName(item)" :class="{'icon-mine':item.type === 'singer','icon-music':!item.type}"></p>
         </li>
       </ul>
-      <p class="toast" v-if="allLoaded">~~到底了~~</p>
+      <p class="toast" v-if="allLoaded">~~到底了，别扯了~~</p>
     </mt-loadmore>
   </div>
 </template>
@@ -22,12 +22,14 @@
   import {search} from 'api/api.search'
   import {ERR_OK} from 'api/api.config'
   import {createSong} from 'public/js/songs'
+  import { mapActions } from 'vuex'
 
   const perpage = 20;
 
   export default {
     data() {
       return {
+        status:false,
         allLoaded: false,
         page: 1,
         showSinger: true,
@@ -46,6 +48,13 @@
       this.getBodyHeight();
     },
     methods: {
+      ...mapActions([
+        'saveSearch',
+      ]),
+      addHistory(item) {
+        this.$toast('播放器暂未实现,模拟播放')
+        this.saveSearch(item);
+      },
       getBodyHeight() {
         let h = document.documentElement.clientHeight-130;
         this.$refs.searchList.style.height = h + 'px'
@@ -130,7 +139,7 @@
       color: $color-text-d;
       li {
         p {
-          line-height: 25px;
+          line-height: 28px;
           @extend no-wrap;
           &:before {
             margin-right: 5px;

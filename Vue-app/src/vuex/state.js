@@ -4,7 +4,8 @@
  */
 const state = {
   singer: {},
-  topList:{}
+  topList:{},
+  history:[]
 }
 
 export default state

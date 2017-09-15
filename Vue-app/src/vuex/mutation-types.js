@@ -5,3 +5,5 @@
 export const SET_SINGER = 'SET_SINGER'
 
 export const SET_TOPLIST = 'SET_TOPLIST'
+
+export const SET_HISTORY = 'SET_HISTORY'

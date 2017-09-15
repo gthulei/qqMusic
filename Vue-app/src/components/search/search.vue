@@ -61,7 +61,7 @@
         if(!newQuery)return;
         clearInterval(this.clear);
         this.clear=setTimeout(()=>{
-          this.$refs.searchList._search();
+          this.$refs.searchList._search(true);
         },500)
 
       }
