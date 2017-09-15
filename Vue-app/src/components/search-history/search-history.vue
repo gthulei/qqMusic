@@ -18,19 +18,18 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {MessageBox,Toast} from 'mint-ui';
 
   export default {
     methods: {
       clear() {
-        MessageBox({
+        this.$messagebox({
           title: '温馨提示',
           message: '是否清空所有搜索历史?',
           showCancelButton: true
         });
       },
       itemDelete() {
-        Toast({
+        this.$toast({
           message: '删除成功',
           duration: 500
         });
