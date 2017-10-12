@@ -41,3 +41,11 @@ export function getDiscList() {
     return Promise.resolve(res.data)
   })
 }
+
+// 推荐列表
+export function getDisc() {
+  const url = '/api/getDisc'
+  return axios.get(url).then((res) => {
+    return Promise.resolve(res.data)
+  })
+}

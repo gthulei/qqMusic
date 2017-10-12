@@ -40,6 +40,20 @@ apiRoutes.get('/getDiscList', function (req, res) {
   })
 })
 
+// 代理
+apiRoutes.get('/getDisc', function (req, res) {
+  res.json({
+    "errorMessage": "处理成功",
+    "errorCode": "0000000",
+    "succeed": true,
+    "data":{
+      endTime:'2017-10-12 14:31:00',
+      currentTime:new Date().getTime(),
+      startTime:'2017-10-12 14:30:00'
+    }
+  })
+})
+
 app.use('/api',apiRoutes)
 var compiler = webpack(webpackConfig)
 
