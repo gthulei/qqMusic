@@ -34,11 +34,6 @@ const search = (resolve) => {
   })
 }
 
-const productDes = (resolve) => {
-  import('components/product-des/product-des').then((module) => {
-    resolve(module)
-  })
-}
 export default new Router({
   routes: [
     {
@@ -70,10 +65,6 @@ export default new Router({
     {
       path: '/search',
       component: search
-    },
-    {
-      path: '/product-des',
-      component: productDes
-    },
+    }
   ]
 })
